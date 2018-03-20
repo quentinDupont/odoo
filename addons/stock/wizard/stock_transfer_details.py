@@ -105,8 +105,13 @@ class stock_transfer_details(models.TransientModel):
         packops = self.env['stock.pack.operation'].search(['&', ('picking_id', '=', self.picking_id.id), '!', ('id', 'in', processed_ids)])
         packops.unlink()
 
+        # GRAP - Begin Patch
         # Execute the transfer of the picking
-        self.picking_id.do_transfer()
+        if not len(processed_ids):
+            raise Warning(_("Choisissez au moins un article pour le transfert. Sinon, Annule le transfert."))
+        else:
+            self.picking_id.do_transfer()
+        # GRAP - End Patch
 
         return True
 
