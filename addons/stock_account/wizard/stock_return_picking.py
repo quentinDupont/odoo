@@ -31,6 +31,7 @@ class stock_return_picking(osv.osv_memory):
         'invoice_state': fields.selection([('2binvoiced', 'To be refunded/invoiced'), ('none', 'No invoicing')], 'Invoicing',required=True),
     }
 
+    
     def default_get(self, cr, uid, fields, context=None):
         res = super(stock_return_picking, self).default_get(cr, uid, fields, context=context)
         record_id = context and context.get('active_id', False) or False
