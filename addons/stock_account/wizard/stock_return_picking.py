@@ -24,6 +24,7 @@ from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 
 
+
 class stock_return_picking(osv.osv_memory):
     _inherit = 'stock.return.picking'
     _columns = {
