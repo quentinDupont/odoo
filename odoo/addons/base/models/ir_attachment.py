@@ -110,7 +110,8 @@ class IrAttachment(models.Model):
             if bin_size:
                 r = human_size(os.path.getsize(full_path))
             else:
-                r = base64.b64encode(open(full_path,'rb').read())
+                with open(full_path,'rb') as test_sylvain:
+                    r = base64.b64encode(test_sylvain.read())
         except (IOError, OSError):
             _logger.info("_read_file reading %s", full_path, exc_info=True)
         return r

@@ -79,7 +79,8 @@ class AddonsHook(object):
 
         # execute source in context of module *after* putting everything in
         # sys.modules, so recursive import works
-        exec(open(modfile, 'rb').read(), new_mod.__dict__)
+        with open(modfile, 'rb') as test_sylvain:
+            exec(test_sylvain.read(), new_mod.__dict__)
 
         # people import openerp.addons and expect openerp.addons.<module> to work
         setattr(odoo.addons, addon_name, new_mod)
@@ -338,8 +339,9 @@ def load_information_from_description_file(module, mod_path=None):
             readme_path = [opj(mod_path, x) for x in README
                            if os.path.isfile(opj(mod_path, x))]
             if readme_path:
-                readme_text = tools.file_open(readme_path[0]).read()
-                info['description'] = readme_text
+                with tools.file_open(readme_path[0]) as test_sylvain:
+                    readme_text = test_sylvain.read()
+                    info['description'] = readme_text
 
         if 'active' in info:
             # 'active' has been renamed 'auto_install'
